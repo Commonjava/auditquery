@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.commonjava.auditquery.changelog;
+package org.commonjava.auditquery.history;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.search.annotations.Analyze;
@@ -31,9 +31,12 @@ import java.util.Date;
 
 @Entity
 @Indexed
-public class RepositoryChangeLog
+public class ChangeEvent
         implements Serializable, Externalizable
 {
+    @JsonProperty
+    private String eventId;
+
     @JsonProperty
     @Field( index = Index.YES, analyze = Analyze.NO )
     private String storeKey;
@@ -52,7 +55,7 @@ public class RepositoryChangeLog
 
     @JsonProperty
     @Field( index = Index.YES, analyze = Analyze.NO )
-    private RepoChangeType changeType;
+    private ChangeType changeType;
 
     @JsonProperty
     @Field( index = Index.YES, analyze = Analyze.NO )
@@ -61,6 +64,16 @@ public class RepositoryChangeLog
     @JsonProperty
     @Field( index = Index.YES, analyze = Analyze.NO )
     private String diffContent;
+
+    public String getEventId()
+    {
+        return eventId;
+    }
+
+    public void setEventId( String eventId )
+    {
+        this.eventId = eventId;
+    }
 
     public String getStoreKey()
     {
@@ -102,12 +115,12 @@ public class RepositoryChangeLog
         this.summary = summary;
     }
 
-    public RepoChangeType getChangeType()
+    public ChangeType getChangeType()
     {
         return changeType;
     }
 
-    public void setChangeType( RepoChangeType changeType )
+    public void setChangeType( ChangeType changeType )
     {
         this.changeType = changeType;
     }
@@ -162,7 +175,7 @@ public class RepositoryChangeLog
         {
             return false;
         }
-        final RepositoryChangeLog other = (RepositoryChangeLog) obj;
+        final ChangeEvent other = (ChangeEvent) obj;
         if ( storeKey == null )
         {
             if ( other.storeKey != null )
@@ -257,7 +270,7 @@ public class RepositoryChangeLog
         this.changeTime = (Date) in.readObject();
         this.version = (String) in.readObject();
         this.summary = (String) in.readObject();
-        this.changeType = (RepoChangeType) in.readObject();
+        this.changeType = (ChangeType) in.readObject();
         this.user = (String) in.readObject();
         this.diffContent = (String) in.readObject();
     }

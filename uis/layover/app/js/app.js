@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import TrackingIDForm from "./components/TrackingIDForm.js";
 import { TrackingSummary } from "./components/TrackingSummary.js";
 import { TrackingContentEntry } from "./components/TrackingContentEntry.js";
-import {ChangelogList} from "./components/changelog/ChangelogList.js";
+import {ChangeEventList} from "./components/history/ChangeEventList.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => (
@@ -16,7 +16,7 @@ const App = () => (
         <Route path="/browse/history/content/tracking/:trackingID/" component={TrackingSummaryDTO} />
         <Route path="/browse/history/content/tracking/:trackingID/:type(upload|download)" component={TrackingContentEntryDTO}/>
 
-        <Route path="/brwose/repository/changelog/" component={ChlogList} />
+        <Route path="/brwose/history/change/" component={ChgEventList} />
 
       </div>
    </Router>
@@ -30,7 +30,7 @@ const Header = () => (
         <li className="nav-item nav-link">
           <Link to="/browse/history/content/tracking/">Tracking Records</Link>
           { " | " }
-          <Link to="/brwose/repository/changelog/">Repository Change History</Link>
+          <Link to="/brwose/history/change/">Repository Change History</Link>
         </li>
       </div>
     </div>
@@ -45,8 +45,8 @@ const TrackingContentEntryDTO = ({ match }) => (
     <TrackingContentEntry trackingID={match.params.trackingID} type={match.params.type} location={location}/>
 );
 
-const ChlogList = ({ match }) => (
-  <ChangelogList />
+const ChgEventList = ({ match }) => (
+  <ChangeEventList />
 )
 
 ReactDOM.render(
