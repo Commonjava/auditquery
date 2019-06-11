@@ -15,7 +15,7 @@
  */
 package org.commonjava.auditquery.ctl;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.commonjava.auditquery.cache.RepoChangeCache;
 import org.commonjava.auditquery.history.ChangeEvent;
 import org.infinispan.Cache;
